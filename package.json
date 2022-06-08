@@ -10,7 +10,7 @@
     "typecheck": "tsc",
     "start": "node dist/index.js",
     "lint:base": "eslint --ext .js,.json,.ts",
-    "test": "jest",
+    "test": "jest --forceExit",
     "lint": "npm run lint:base src",
     "prepare": "simple-pre-commit"
   },

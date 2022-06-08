@@ -1,7 +1,7 @@
-import { build } from '../index';
 import { Db } from 'mongodb';
 import { connect } from '../mongo-connect';
 import { SessionModel } from '../models/SessionModel';
+import { makeServer } from '../makeServer';
 
 let TEST_DB: Db;
 
@@ -11,7 +11,7 @@ beforeAll(async () => {
 
 describe('Session handling', function () {
   it('should issue session tokens when using valid credentials', async () => {
-    const server = await build();
+    const server = await makeServer();
     const response = await server.inject({
       method: 'POST',
       payload: { username: 'admin', password: 'admin' },
@@ -27,7 +27,7 @@ describe('Session handling', function () {
   });
 
   it('should return 401 when authenticating with invalid credentials', async () => {
-    const server = await build();
+    const server = await makeServer();
     const response = await server.inject({
       method: 'POST',
       payload: { username: 'admin', password: 'wrongpass' },
@@ -37,7 +37,7 @@ describe('Session handling', function () {
   });
 
   it('should destroy sessions when logging out', async () => {
-    const server = await build();
+    const server = await makeServer();
     const token = (
       await server.inject({
         method: 'POST',
@@ -58,7 +58,7 @@ describe('Session handling', function () {
   });
 
   it('should respond with 401 when invalid token provided', async () => {
-    const server = await build();
+    const server = await makeServer();
     const token = 'invalid';
 
     const response = await server.inject({
