@@ -26,6 +26,7 @@ jobs:
       with:
         mongodb-version: "5.0.9"
         mongodb-username: devroot
+        mongodb-port: 27017
         mongodb-password: devroot
         mongodb-db: project
     - name: Use Node.js ${{ matrix.node-version }}
